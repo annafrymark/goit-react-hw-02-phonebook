@@ -11,7 +11,7 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
+    console.log({ event });
     const form = event.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
@@ -21,9 +21,16 @@ class App extends Component {
     form.reset();
   };
 
-  render() {
-    // const { contacts, name } = this.state;
+  handleChange = event => {
+    this.setState({
+      name: event.target.value.name,
+      number: event.target.value.number
+    });
+  };
 
+  render() {
+    const { name, number } = this.state;
+console.log({name, number})
     const nameInputId = nanoid();
 
     return (
@@ -32,16 +39,19 @@ class App extends Component {
         <form onSubmit={this.handleSubmit} className={css.form}>
           <label htmlFor={nameInputId}>Name</label>
           <input
+            value={name}
+            onChange={this.handleChange}
             id={nameInputId}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-
           />
           <label htmlFor="number">Number</label>
           <input
+            value={number}
+            onChange={this.handleChange}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -61,22 +71,5 @@ class App extends Component {
     );
   }
 }
-
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101',
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
 
 export default App;
