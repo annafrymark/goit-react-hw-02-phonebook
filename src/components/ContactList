@@ -1,0 +1,41 @@
+import { Component } from 'react';
+import ContactListItem from './ContactListItem';
+
+class ContactList extends Component {
+    render() {
+        const { contacts, deleteContact } = this.props;
+        return (
+          <>
+            <ul className= { css.contactList } >
+            {
+                contacts.map(({ id, name, number }) => (
+                    <>
+            ))
+            } </ul>
+          </>
+        );
+        
+    }
+}
+
+
+//     () {
+//     return (
+//         <ul>
+//         {
+//             contacts.map(({ id, name, number }) => {
+//                 <ContactListItem
+//             key={ id }
+//                 name = { name }
+//                 number = { number }
+//                 onDelete = {() => onDelete(id)}
+//            />
+//               ))}
+//           </ul>
+//         );
+//         }
+   
+// </ul>)}
+//     }
+export default ContactList;
+

@@ -1,72 +1,48 @@
 import React, { Component } from 'react';
+import Form from './components/Form';
+import ContactList from './components/ContactList';
+import Filter from './components/Filter';
 import { nanoid } from 'nanoid';
 import css from './app.module.css';
 
 class App extends Component {
   state = {
-    contacts: [],
-    name: '',
-    number: '',
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log({ event });
-    const form = event.currentTarget;
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
 
-    this.props.onSubmit({ name, number });
-
-    form.reset();
-  };
-
-  handleChange = event => {
-    this.setState({
-      name: event.target.value.name,
-      number: event.target.value.number
-    });
+    //this.props.onSubmit({...this.state})
   };
 
   render() {
     const { name, number } = this.state;
-console.log({name, number})
+
+    console.log({ name, number });
     const nameInputId = nanoid();
 
     return (
       <div className={css.container}>
         <h1>Phonebook</h1>
-        <form onSubmit={this.handleSubmit} className={css.form}>
-          <label htmlFor={nameInputId}>Name</label>
-          <input
-            value={name}
-            onChange={this.handleChange}
-            id={nameInputId}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-          <label htmlFor="number">Number</label>
-          <input
-            value={number}
-            onChange={this.handleChange}
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-          <button
-            type="submit"
-            className={css.button}
-            //disabled={!isActive}
-          >
-            Add contact
-          </button>
-        </form>
+        <Form contacts={contacts} onSubmit={this.handleSubmit} />{' '}
         <h2>Contacts</h2>
+        <Filter
+          value={filter}
+          //value={value}
+          onChange={this.filter}
+          filtredContacts={this.filtredContacts}
+        />
+        <ContactList
+          contacts={filtredContacts}
+          deleteContact={this.deleteContact}
+        />
       </div>
     );
   }
