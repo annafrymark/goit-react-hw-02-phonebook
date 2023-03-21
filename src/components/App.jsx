@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Form from './components/Form';
-import ContactList from './components/ContactList';
-import Filter from './components/Filter';
-import { nanoid } from 'nanoid';
+import Form from './Form';
+import ContactList from './ContactList';
+import Filter from './Filter';
+//import { nanoid } from 'nanoid';
 import css from './app.module.css';
 
 class App extends Component {
@@ -16,31 +16,68 @@ class App extends Component {
     filter: '',
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-
-    //this.props.onSubmit({...this.state})
+  addNewContact = newContact => {
+    this.setState({
+      contacts: [...this.state.contacts, newContact],
+    });
   };
 
-  render() {
-    const { name, number } = this.state;
+  filter = event => {
+    this.setState({
+      filter: event.currentTarget.value,
+    });
+  };
 
-    console.log({ name, number });
-    const nameInputId = nanoid();
+  filterContacts = () => {
+    const { filter, contacts } = this.state;
+    return contacts.filter(({ contact }) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+  // handleSubmit = event => {
+  //   event.preventDefault();
+
+  //   this.props.onSubmit({...this.state})
+  // };
+
+  deleteContact = match => {
+    const deletedContact = this.state.contacts.find(
+      ({ id }) => id === match
+    ).name;
+    this.setState(prevState => ({
+      contact: prevState.contact.filter(contact => contact.id !== match),
+    }));
+    console.log(deletedContact);
+    alert(`${deletedContact} was deleted from contacts.`);
+  };
+
+  
+  render() {
+    //const { name, number } = this.state;
+    const value = this.state.filter;
+    const filtredContacts = this.filterContacts;
+   
+    //const nameInputId = nanoid();
 
     return (
       <div className={css.container}>
         <h1>Phonebook</h1>
-        <Form contacts={contacts} onSubmit={this.handleSubmit} />{' '}
+        <Form
+          addNewContact={this.addNewContact}
+          contacts={this.state.contacts}
+
+          //onSubmit={this.handleSubmit}
+        />{' '}
         <h2>Contacts</h2>
         <Filter
-          value={filter}
-          //value={value}
+          value={value}
           onChange={this.filter}
           filtredContacts={this.filtredContacts}
         />
         <ContactList
-          contacts={filtredContacts}
+          contacts={this.state.contacts}
+          arrayFiltred={filtredContacts}
           deleteContact={this.deleteContact}
         />
       </div>

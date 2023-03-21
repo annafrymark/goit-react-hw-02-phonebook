@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 class Form extends Component {
   state = {
-    //contacts: [],
+    contacts: [],
     name: '',
     number: '',
   };
@@ -64,15 +64,15 @@ class Form extends Component {
    // const { name, number } = this.state;
 
     //console.log({ name, number });
-    //const nameInputId = nanoid();
+    const nameInputId = nanoid();
 
     return (
       <form onSubmit={this.handleSubmit} className={css.form}>
         <label htmlFor={nameInputId}>Name</label>
         <input
-          value={name}
+          value={this.state.name}
           onChange={this.handleChange}
-          //id={nameInputId}
+          id={nameInputId}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -81,7 +81,7 @@ class Form extends Component {
         />
         <label htmlFor="number">Number</label>
         <input
-          value={number}
+          value={this.state.number}
           onChange={this.handleChange}
           type="tel"
           name="number"
