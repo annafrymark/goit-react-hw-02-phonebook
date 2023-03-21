@@ -52,12 +52,11 @@ class App extends Component {
     alert(`${deletedContact} was deleted from contacts.`);
   };
 
-  
   render() {
     //const { name, number } = this.state;
     const value = this.state.filter;
     const filtredContacts = this.filterContacts;
-   
+
     //const nameInputId = nanoid();
 
     return (
@@ -77,7 +76,6 @@ class App extends Component {
         />
         <ContactList
           contacts={this.state.contacts}
-          arrayFiltred={filtredContacts}
           deleteContact={this.deleteContact}
         />
       </div>

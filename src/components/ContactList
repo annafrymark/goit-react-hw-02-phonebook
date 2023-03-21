@@ -4,13 +4,11 @@ import ContactListItem from './ContactListItem';
 
 class ContactList extends Component {
   render() {
-      let { contacts, arrayFiltred, deleteContact } = this.props;
-      contacts = contacts.filter(contact => {
-          return contact.name.toLowerCase().includes(arrayFiltred);
-      });
-      return (<ContactListItem>
-          
-          
+      return (
+          <>
+          <ContactListItem>
+        
+          </>
       )
   }
 }
