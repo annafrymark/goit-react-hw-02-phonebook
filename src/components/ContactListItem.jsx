@@ -1,33 +1,37 @@
 import { Component } from 'react';
 import css from './app.module.css';
+import PropTypes from 'prop-types';
 
 class ContactListItem extends Component {
-  //console.log(contact);
+  handleOnClick = event => {
+    this.props.deleteContact(this.props.contact.id);
+  };
+
   render() {
-    const { contacts, deleteContact } = this.props;
-    return contacts.map(contact => (
-      <li key={contact.id} className={css.contactListItem}>
+    const contact = this.props.contact;
+
+    return (
+      <li className={css.contactListItem}>
         {contact.name} : {contact.number}
         <button
           className={css.deleteButton}
           type="button"
-          onClick={deleteContact()}
+          onClick={this.handleOnClick}
+          data-id={contact.id}
         >
           Delete
         </button>
       </li>
-    ));
-
-    //   <li className={css.contactListItem}>
-    //     {name} : {number}
-    //     <button
-    //       className={css.deleteButton}
-    //       type="button"
-    //       onClick={deleteContact()}
-    //     >
-    //       Delete
-    //     </button>
-    //   </li>
+    );
   }
 }
+
+ContactListItem.propTypes = {
+  contact: optionalObjectWithShape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    number: PropTypes.number,
+  }),
+};
+
 export default ContactListItem;

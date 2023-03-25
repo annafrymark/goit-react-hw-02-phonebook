@@ -1,27 +1,23 @@
 import { Component } from 'react';
 import css from './app.module.css';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
-class Form extends Component {
+class ContactForm extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
   };
 
-  //opcja
-  // handleChange = (key, value) => {
-  //     this.setState({
-  //         [key]: value,
-  //     });
-  // }
-
-  handleChange = event => {
-    //console.log(event)
-    const { name, value } = event.target;
+  handleChangeName = event => {
     this.setState({
-      [name]: value,
-      //name: event.target.value
+      name: event.target.value,
+    });
+  };
+
+  handleChangeNumber = event => {
+    this.setState({
+      number: event.target.value,
     });
   };
 
@@ -45,7 +41,7 @@ class Form extends Component {
 
     contacts.forEach(contact => {
       if (contact.name.toLowerCase() === newContact.name.toLowerCase()) {
-        alert(`${contact.name} is already in contacts.`);
+        alert(`${newContact.name} is already in contacts.`);
         contactExist = true;
       }
     });
@@ -55,13 +51,10 @@ class Form extends Component {
     }
 
     this.reset();
-    // onSubmit({ id: nanoid(), name, number });
-    // setName
-    // setNumber
   };
 
   render() {
-   // const { name, number } = this.state;
+    const { name, number } = this.state;
 
     //console.log({ name, number });
     const nameInputId = nanoid();
@@ -70,8 +63,8 @@ class Form extends Component {
       <form onSubmit={this.handleSubmit} className={css.form}>
         <label htmlFor={nameInputId}>Name</label>
         <input
-          value={this.state.name}
-          onChange={this.handleChange}
+          value={name}
+          onChange={this.handleChangeName}
           id={nameInputId}
           type="text"
           name="name"
@@ -81,8 +74,8 @@ class Form extends Component {
         />
         <label htmlFor="number">Number</label>
         <input
-          value={this.state.number}
-          onChange={this.handleChange}
+          value={number}
+          onChange={this.handleChangeNumber}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -101,4 +94,9 @@ class Form extends Component {
   }
 }
 
-export default Form;
+ContactForm.propTypes = {
+  name: PropTypes.string,
+  number: PropTypes.number,
+};
+
+export default ContactForm;
