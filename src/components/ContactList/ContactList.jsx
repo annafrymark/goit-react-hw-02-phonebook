@@ -1,13 +1,13 @@
 import { Component } from 'react';
-import ContactListItem from './ContactListItem';
-import css from './app.module.css';
+import ContactListItem from '../ContactListItem/ContactListItem';
+import css from './contactList.module.css';
 import PropTypes from 'prop-types';
 
 class ContactList extends Component {
   render() {
     const { contacts, deleteContact } = this.props;
     return (
-      <ul>
+      <ul className={css.contactList}>
         {contacts.map(contact => (
           <ContactListItem
             key={contact.id}
@@ -21,13 +21,7 @@ class ContactList extends Component {
 }
 
 ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      number: PropTypes.number,
-    })
-  ),
+  contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   deleteContact: PropTypes.func,
 };
 

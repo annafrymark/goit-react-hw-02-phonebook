@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Form from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 import css from './app.module.css';
 
 class App extends Component {
@@ -19,6 +19,7 @@ class App extends Component {
     this.setState({
       contacts: [...this.state.contacts, newContact],
     });
+    console.log(newContact);
   };
 
   deleteContact = id => {

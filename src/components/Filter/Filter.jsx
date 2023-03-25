@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import css from './app.module.css';
+import css from './filter.module.css';
 import PropTypes from 'prop-types';
 
 class Filter extends Component {
@@ -26,7 +26,7 @@ class Filter extends Component {
 }
 
 Filter.propTypes = {
-  contact: optionalObjectWithShape({
+  contact: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     number: PropTypes.number,

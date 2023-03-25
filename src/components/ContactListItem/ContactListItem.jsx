@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import css from './app.module.css';
+import css from './contactListItem.module.css';
 import PropTypes from 'prop-types';
 
 class ContactListItem extends Component {
@@ -27,11 +27,8 @@ class ContactListItem extends Component {
 }
 
 ContactListItem.propTypes = {
-  contact: optionalObjectWithShape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    number: PropTypes.number,
-  }),
+  contact: PropTypes.objectOf(PropTypes.string),
+  deleteContact: PropTypes.func,
 };
 
 export default ContactListItem;
